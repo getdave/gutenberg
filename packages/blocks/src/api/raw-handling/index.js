@@ -23,6 +23,7 @@ import shortcodeConverter from './shortcode-converter';
 import markdownConverter from './markdown-converter';
 import iframeRemover from './iframe-remover';
 import { getPhrasingContentSchema } from './phrasing-content';
+import googleDocsGUIDRemover from './google-docs-guid-remover';
 import {
 	deepFilterHTML,
 	isPlain,
@@ -193,6 +194,7 @@ export function pasteHandler( { HTML = '', plainText = '', mode = 'AUTO', tagNam
 		}
 
 		const filters = [
+			googleDocsGUIDRemover,
 			msListConverter,
 			headRemover,
 			listReducer,
