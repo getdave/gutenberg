@@ -38,19 +38,27 @@ export const settings = {
 	attributes: {
 		backgroundColor: {
 			type: 'string',
-			default: 'primary',
+		},
+		contentMaxWidth: {
+			type: 'string',
+			default: 'full',
 		},
 	},
 
 	edit,
 
 	save( { attributes } ) {
-		const { backgroundColor, customBackgroundColor } = attributes;
+		const { backgroundColor, customBackgroundColor, contentMaxWidth } = attributes;
 
 		const backgroundClass = getColorClassName( 'background-color', backgroundColor );
 		const className = classnames( backgroundClass, {
 			'has-background': backgroundColor || customBackgroundColor,
 		} );
+
+		const innerClasses = classnames(
+			'wp-block-container__inner',
+			`is-${ contentMaxWidth || 'site' }-width`
+		);
 
 		const styles = {
 			backgroundColor: backgroundClass ? undefined : customBackgroundColor,
@@ -58,7 +66,9 @@ export const settings = {
 
 		return (
 			<div className={ className } style={ styles }>
-				<InnerBlocks.Content />
+				<div className={ innerClasses }>
+					<InnerBlocks.Content />
+				</div>
 			</div>
 		);
 	},

@@ -1,0 +1,39 @@
+/**
+ * EDITOR SPECIFIC STYLES
+ */
+
+.wp-block-container__inner {
+	margin-left: auto;
+	margin-right: auto;
+
+	&.is-content-width {
+		max-width: $content-width;
+	}
+
+	&.is-full-width {
+		width: auto;
+	}
+}
+
+.alignfull > .wp-block-container__inner.is-site-width {
+	padding-left: calc(10% + 64px);
+	padding-right: calc(10% + 64px);
+	max-width: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.components-toolbar {
+	justify-content: space-evenly;
+}
+
+.components-icon-button.is-large {
+	width: 64px;
+	height: 64px;
+
+	svg {
+		width: 60px;
+		height: 60px;
+	}
+}
+
