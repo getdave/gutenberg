@@ -1,8 +1,79 @@
+$unknow-spacing-requirement: 4px;
+$unknow-block-padding-multiplier: 4.5;
+
 .wp-block-section {
 	padding: $block-padding;
 
 	&.has-background {
 		margin-top: 0;
 		margin-bottom: 0;
+	}
+}
+
+/**
+ * Section All Parent Alignment Settings
+ * @type {String}
+ */
+.wp-block[data-type="core/section"] {
+	// Child: Wide Alignment
+	.wp-block[data-align="wide"] {
+		padding-left: $block-padding*2;
+		padding-right: $block-padding*2;
+	}
+
+	// Child: Full Alignment
+	.editor-block-list__layout > .wp-block[data-align="full"] {
+		left: auto;
+		max-width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 0;
+		padding-right: 0;
+
+		.editor-block-list__block-edit {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+}
+
+
+/**
+ * Section Standard Alignment
+ */
+// .wp-block[data-type="core/section"]:not([data-align="wide"]):not([data-align="full"]) {
+
+// 	// Child: Wide Alignment
+// 	.wp-block[data-align="wide"] {
+
+// 	}
+// }
+
+
+/**
+ * Section Wide Alignment
+ */
+.wp-block[data-type="core/section"][data-align="wide"] {
+
+	// Child: Standard Alignment
+	.wp-block:not([data-align="wide"]):not([data-align="full"]) {
+		width: calc((6 * (100vw / 12 ) ) - #{$block-padding});
+	}
+}
+
+
+/**
+ * Section Full Alignment
+ */
+.wp-block[data-type="core/section"][data-align="full"] {
+	// Cancel edge padding when filling the viewport
+	.wp-block-section {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.wp-block:not([data-align="wide"]):not([data-align="full"]) {
+		width: calc((6 * (100vw / 12 ) ) - #{$block-padding});
+		margin: 0 calc(10% + #{$block-padding*$unknow-block-padding-multiplier} - #{$unknow-spacing-requirement});
 	}
 }
