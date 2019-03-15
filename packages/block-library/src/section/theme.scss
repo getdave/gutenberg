@@ -1,7 +1,6 @@
-$unknow-spacing-requirement: 4px;
-$unknow-block-padding-multiplier: 4.5;
+$block-name: "section";
 
-.wp-block-section {
+.wp-block-#{$block-name} {
 	padding: $block-padding;
 
 	&.has-background {
@@ -11,14 +10,16 @@ $unknow-block-padding-multiplier: 4.5;
 }
 
 /**
- * Section All Parent Alignment Settings
- * @type {String}
+ * All Alignment Settings
  */
-.wp-block[data-type="core/section"] {
+.wp-block[data-type="core/#{$block-name}"] {
+
 	// Child: Wide Alignment
 	.wp-block[data-align="wide"] {
-		padding-left: $block-padding*2;
-		padding-right: $block-padding*2;
+		@include break-small() {
+			padding-left: $block-padding*2;
+			padding-right: $block-padding*2;
+		}
 	}
 
 	// Child: Full Alignment
@@ -39,25 +40,20 @@ $unknow-block-padding-multiplier: 4.5;
 
 
 /**
- * Section Standard Alignment
- */
-// .wp-block[data-type="core/section"]:not([data-align="wide"]):not([data-align="full"]) {
-
-// 	// Child: Wide Alignment
-// 	.wp-block[data-align="wide"] {
-
-// 	}
-// }
-
-
-/**
  * Section Wide Alignment
  */
-.wp-block[data-type="core/section"][data-align="wide"] {
+.wp-block[data-type="core/#{$block-name}"][data-align="wide"] {
 
 	// Child: Standard Alignment
 	.wp-block:not([data-align="wide"]):not([data-align="full"]) {
-		width: calc((6 * (100vw / 12 ) ) - #{$block-padding});
+		@include break-wide() {
+			width: calc((8 * (100vw / 12 ) ) - #{$block-padding});
+		}
+
+		@include break-xlarge() {
+			width: 100%;
+			max-width: calc((6 * (100vw / 12 ) ) - #{$block-padding});
+		}
 	}
 }
 
@@ -65,28 +61,70 @@ $unknow-block-padding-multiplier: 4.5;
 /**
  * Section Full Alignment
  */
-.wp-block[data-type="core/section"][data-align="full"] {
+.wp-block[data-type="core/#{$block-name}"][data-align="full"] {
+
+	// Inner Blocks centering content within the editor
+	.editor-inner-blocks {
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 7px;
+		padding-right: 7px;
+		width: calc(100vw - (2 * 1rem));
+
+		@include break-small() {
+			padding-left: 35px;
+			padding-right: 35px;
+		}
+
+		@include break-medium() {
+			padding-left: 52px;
+			padding-right: 48px;
+			width: 80%;
+		}
+
+		.editor-block-list__layout {
+			margin-left: -$block-spacing;
+			margin-right: -$block-spacing;
+		}
+	}
 
 	// Cancel edge padding when filling the viewport
-	.wp-block-section {
+	.wp-block-#{$block-name} {
 		padding-left: 0;
 		padding-right: 0;
 	}
 
-	// Standard and Wide
-	.wp-block:not([data-align="full"]) {
-		margin: 0 calc(10% + #{$block-padding*$unknow-block-padding-multiplier} - #{$unknow-spacing-requirement});
-	}
-
 	// Standard
 	.wp-block:not([data-align="wide"]):not([data-align="full"]) {
-		width: calc(6 * ( 100vw / 12 ));
+		@include break-wide() {
+			width: calc((8 * (100vw / 12 ) ));
+		}
+
+		@include break-xlarge() {
+			width: 100%;
+			// max-width: calc((6 * (100vw / 12 ) ) - #{$block-padding});
+			max-width: calc((6 * (100vw / 12 ) ));
+		}
 	}
 
 	// Wide
 	.wp-block[data-align="wide"] {
-		width: calc(6 * ( 100vw / 12 ));
-		padding-left: $block-padding*3;
-		padding-right: $block-padding*3;
+		width: 100%;
+
+
+		@include break-small() {
+			padding-left: ($block-padding*3) + 1; // why 1px?
+			padding-right: ($block-padding*3) + 3; // why 3px?
+		}
+	}
+
+	// Full
+	.wp-block[data-align="full"] {
+		position: relative;
+		padding-left: 0;
+		padding-right: 0;
+		width: calc(125% + 116px);
+		left: calc(-12.5% - 57px);
+		max-width: calc(125% + 116px);
 	}
 }
