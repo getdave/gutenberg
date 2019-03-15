@@ -66,14 +66,27 @@ $unknow-block-padding-multiplier: 4.5;
  * Section Full Alignment
  */
 .wp-block[data-type="core/section"][data-align="full"] {
+
 	// Cancel edge padding when filling the viewport
 	.wp-block-section {
 		padding-left: 0;
 		padding-right: 0;
 	}
 
-	.wp-block:not([data-align="wide"]):not([data-align="full"]) {
-		width: calc((6 * (100vw / 12 ) ) - #{$block-padding});
+	// Standard and Wide
+	.wp-block:not([data-align="full"]) {
 		margin: 0 calc(10% + #{$block-padding*$unknow-block-padding-multiplier} - #{$unknow-spacing-requirement});
+	}
+
+	// Standard
+	.wp-block:not([data-align="wide"]):not([data-align="full"]) {
+		width: calc(6 * ( 100vw / 12 ));
+	}
+
+	// Wide
+	.wp-block[data-align="wide"] {
+		width: calc(6 * ( 100vw / 12 ));
+		padding-left: $block-padding*3;
+		padding-right: $block-padding*3;
 	}
 }
