@@ -115,11 +115,11 @@ $block-name: "section";
 
 	// Full
 	.wp-block[data-align="full"] {
-		padding-right: $block-padding;
-		padding-left: $block-padding;
+		padding-right: 0;
+		padding-left: 0;
 
-		width: calc(100% + 92px);
-		left: -46px;
+		width: calc(100% + 64px);
+		left: -32px;
 		max-width: none;
 
 	}
